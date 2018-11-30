@@ -102,11 +102,14 @@ startListeningDatabaseChanges = () => {
     }
 
     placeNewMeal = () => {
-        this.setState({
-            meals: this.state.meals.concat(
-                this.generateNewMealPosition()
-            )
-        })
+        this.props.firebaseDatabase.ref(`snake-multi${this.matchId}/meals`).set(
+            this.setState({
+                meals: this.state.meals.concat(
+                    this.generateNewMealPosition()
+                )
+                })
+                )
+        .off()
     }
 
     generateNewMealPosition = () => {
@@ -175,9 +178,9 @@ startListeningDatabaseChanges = () => {
             this.moveSnake(newSnakeHeadPosition)
         } else {
             this.moveSnakeOnMeal(newSnakeHeadPosition)
-            this.setState({
-                meals: newMeals
-            })
+            this.props.firebaseDatabase.ref(`snake-multi${this.matchId}/meals`).set(
+                newMeals
+            )
             this.placeNewMeal()
         }
     }
@@ -193,6 +196,10 @@ startListeningDatabaseChanges = () => {
                 :
                 snake
         ))
+
+        this.props.firebaseDatabase.ref(`snake-multi${this.matchId}/meals`).set(
+            newSnakes
+        )
 
         this.setState({
             snakes: newSnakes
@@ -210,6 +217,10 @@ startListeningDatabaseChanges = () => {
                 :
                 snake
         ))
+
+        this.props.firebaseDatabase.ref(`snake-multi${this.matchId}/meals`).set(
+            newSnakes
+        )
 
         this.setState({
             snakes: newSnakes
@@ -271,7 +282,7 @@ startListeningDatabaseChanges = () => {
 Snake.defaultProps = {
     // @TODO it should be checked if bigger than eg. 5
     boardDimension: 11,
-    startGameTickTime: 500
+    startGameTickTime: 400
 }
 
 export default Snake
