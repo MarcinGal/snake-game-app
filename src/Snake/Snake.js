@@ -26,14 +26,16 @@ class Snake extends React.Component {
                     { x: halfBoardDimension - 1, y: halfBoardDimension }
                 ],
             ],
-            meals: []
+            meals: [],
+            currentPlayerIndex: 0,
+            gameTickTime: props.startGameTickTime
         }
     }
 
     componentDidMount() {
         this.intervalId = setInterval(
             this.gameTick,
-        1000
+            this.state.gameTickTime
         )
     }
 
@@ -41,9 +43,9 @@ class Snake extends React.Component {
         clearInterval(this.intervalId)
     }
 
-gameTick = () => {
-    console.log('tick')
-}
+    gameTick = () => {
+        console.log('tick')
+    }
 
     composeGameBoard = () => {
         const gameBoardCopy = JSON.parse(JSON.stringify(this.state.gameBoard))
@@ -77,7 +79,8 @@ gameTick = () => {
 
 Snake.defaultProps = {
     // @ToDo it should be checked if bigger than eg. 5
-    boardDimension: 11
+    boardDimension: 11,
+    startGameTickTime: 1000
 }
 
 export default Snake
