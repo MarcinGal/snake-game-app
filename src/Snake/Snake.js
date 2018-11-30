@@ -7,12 +7,13 @@ class Snake extends React.Component {
 
         const halfBoardDimension = Math.ceil(props.boardDimension / 2) - 1
 
+        this.intervalId = null
         this.state = {
             gameBoard: (
-              Array(props.boardDimension)
-                .fill(
-                  Array(props.boardDimension)
-                    .fill(1)
+                Array(props.boardDimension)
+                    .fill(
+                        Array(props.boardDimension)
+                            .fill(1)
                     )
             ),
             snakes: [
@@ -28,6 +29,21 @@ class Snake extends React.Component {
             meals: []
         }
     }
+
+    componentDidMount() {
+        this.intervalId = setInterval(
+            this.gameTick,
+        1000
+        )
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalId)
+    }
+
+gameTick = () => {
+    console.log('tick')
+}
 
     composeGameBoard = () => {
         const gameBoardCopy = JSON.parse(JSON.stringify(this.state.gameBoard))
