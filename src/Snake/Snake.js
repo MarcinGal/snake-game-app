@@ -10,19 +10,27 @@ class Snake extends React.Component {
                         .fill(1)
                 )
         ),
-        snake1: [
-            {x: 5, y: 5}
+        snakes: [
+            [
+                { x: 5, y: 5 }
+            ],
+            [
+                { x: 0, y: 0 }
+            ],
         ]
     }
 
     composeGameBoard = () => {
         const gameBoardCopy = JSON.parse(JSON.stringify(this.state.gameBoard))
 
-       this.state.snake1.forEach(bodyCellPosition => (
-           gameBoardCopy[bodyCellPosition.y][bodyCellPosition.x] = 0
-       ))
+        this.state.snakes
+        .forEach(snake => (
+        snake.forEach(bodyCellPosition => (
+            gameBoardCopy[bodyCellPosition.y][bodyCellPosition.x] = 0
+        ))
+        ))
 
-       return gameBoardCopy
+        return gameBoardCopy
     }
 
     render() {
