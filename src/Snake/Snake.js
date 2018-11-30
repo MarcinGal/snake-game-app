@@ -50,12 +50,13 @@ class Snake extends React.Component {
 
     gameTick = () => {
         console.log('tick')
+        this.checkIfMovesAreAvailable()
     }
 
     checkIfMovesAreAvailable = () => {
         this.state.snakes.forEach((snakePositions, snakeIndex) => {
             const snakeHeadPosition = snakePositions[0]
-            const direction = this.state.direction[snakeIndex]
+            const direction = this.state.directions[snakeIndex]
             let newSnakeHeadPosition = null
 
             switch (direction) {
