@@ -12,11 +12,16 @@ class Snake extends React.Component {
         ),
         snakes: [
             [
-                { x: 5, y: 5 }
+                { x: 5, y: 5 },
+                { x: 5, y: 6 }
             ],
             [
-                { x: 0, y: 0 }
+                { x: 0, y: 0 },
+                { x: 0, y: 1 }
             ],
+        ],
+        meals: [
+            { x: 2, y: 3 }
         ]
     }
 
@@ -24,11 +29,16 @@ class Snake extends React.Component {
         const gameBoardCopy = JSON.parse(JSON.stringify(this.state.gameBoard))
 
         this.state.snakes
-        .forEach(snake => (
-        snake.forEach(bodyCellPosition => (
-            gameBoardCopy[bodyCellPosition.y][bodyCellPosition.x] = 0
-        ))
-        ))
+            .forEach(snake => (
+                snake.forEach(bodyCellPosition => (
+                    gameBoardCopy[bodyCellPosition.y][bodyCellPosition.x] = 0
+                ))
+            ))
+
+            this.state.meals.forEach(mealPosition => (
+                gameBoardCopy[mealPosition.y][mealPosition.x] = 'F'
+
+            ))
 
         return gameBoardCopy
     }
