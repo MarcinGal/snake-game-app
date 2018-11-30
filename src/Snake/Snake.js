@@ -45,7 +45,9 @@ this.matchId = window.location.hash
     }
 
     startNewMatch = () => {
-        const newRef = this.props.firebaseDatabase.ref('snake-multi').push()
+        const newRef = this.props.firebaseDatabase.ref('snake-multi').push(
+            this.state
+        )
 
 
         window.location.hash = newRef.key
