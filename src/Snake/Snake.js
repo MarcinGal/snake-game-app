@@ -24,7 +24,11 @@ class Snake extends React.Component {
                 [
                     { x: halfBoardDimension - 2, y: halfBoardDimension },
                     { x: halfBoardDimension - 1, y: halfBoardDimension }
-                ],
+                ]
+            ],
+            directions: [
+                'right',
+                'left'
             ],
             meals: [],
             currentPlayerIndex: 0,
@@ -45,6 +49,41 @@ class Snake extends React.Component {
 
     gameTick = () => {
         console.log('tick')
+    }
+
+    checkIfMovesAreAvailable = () => {
+        this.state.snakes.forEach((snakePositions, i) => {
+            const snakeHeadPosition = snakePositions[0]
+            const direction = this.state.direction[i]
+            let newSnakeHeadPosition = null
+
+            switch (direction) {
+                case 'left':
+                    newSnakeHeadPosition = {
+                        x: snakeHeadPosition.x - 1,
+                        y: snakeHeadPosition.y
+                    }
+                    break
+                case 'right':
+                    newSnakeHeadPosition = {
+                        x: snakeHeadPosition.x + 1,
+                        y: snakeHeadPosition.y
+                    }
+                    break
+                case 'top':
+                    newSnakeHeadPosition = {
+                        x: snakeHeadPosition.x,
+                        y: snakeHeadPosition.y - 1
+                    }
+                    break
+                case 'down':
+                    newSnakeHeadPosition = {
+                        x: snakeHeadPosition.x ,
+                        y: snakeHeadPosition.y + 1
+                    }
+                    break
+            }
+        })
     }
 
     composeGameBoard = () => {
