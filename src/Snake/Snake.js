@@ -83,6 +83,7 @@ class Snake extends React.Component {
                         y: snakeHeadPosition.y + 1
                     }
                     break
+                default:
             }
 
             if (
@@ -95,6 +96,27 @@ class Snake extends React.Component {
             }
 
         })
+    }
+
+    moveSnake = (snakeIndex, newSnakeHeadPosition) => {
+        const currentSnake = this.state.snakes[snakeIndex]
+        const snakeWithoutTail = currentSnake.slice(0, -1)
+        const snakeWithNewHead = [newSnakeHeadPosition].concat(snakeWithoutTail)
+
+        const newSnakes = this.state.snakes.map((snake, i) => (
+            snakeIndex === i ?
+                snakeWithNewHead
+                :
+                snake
+        ))
+
+        this.setState({
+            snakes: newSnakes
+        })
+    }
+
+    endGame = (snakeIndex) => {
+        alert(`SNAKE ${snakeIndex} LOST!`)
     }
 
     composeGameBoard = () => {
