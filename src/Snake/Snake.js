@@ -134,14 +134,30 @@ class Snake extends React.Component {
     )
 
     if(newMeals.length === this.state.meals.length){
-
+      this.moveSnake(newSnakeHeadPosition)
     }else{
+      this.moveSnakeOnMeal(newSnakeHeadPosition)
       this.setState({
         meals: newMeals
       })
     }
+  }
 
-    this.moveSnake(newSnakeHeadPosition)
+  // @FIXME - this is almost copy paste of moveSnake
+  moveSnakeOnMeal = (newSnakeHeadPosition) => {
+    const snake = this.state.snakes[this.currentPlayerIndex]
+    const snakeWithNewHead = [newSnakeHeadPosition].concat(snake)
+
+    const newSnakes = this.state.snakes.map((snake, i) => (
+      this.currentPlayerIndex === i ?
+        snakeWithNewHead
+        :
+        snake
+    ))
+
+    this.setState({
+      snakes: newSnakes
+    })
   }
 
   moveSnake = (newSnakeHeadPosition) => {
