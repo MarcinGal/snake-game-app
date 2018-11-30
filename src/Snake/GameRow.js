@@ -5,19 +5,26 @@ const style = {
     display: 'flex'
 }
 
-const GameRow = (props) => (
+const GameRow = (props) => {
+    const numberOfCells = props.row.length
+
+    return (
     <div
-    style={style}
+    style={{
+    ...style,
+    height: 100 / numberOfCells + '%'
+    }}
     >
     {
         props.row.map(cell => (
             <GameCell
             cell = {cell}
-            numberOfCells={props.row.length}
+            numberOfCells={numberOfCells}
             />
         ))
     }
 </div>
-)
+    )
+}
 
 export default GameRow
