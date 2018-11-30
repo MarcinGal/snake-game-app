@@ -36,10 +36,11 @@ class Snake extends React.Component {
     }
 
     checkIfIsIntheMatch = () => {
-        if(window.location.has){
-this.matchId = window.location.hash
+        if (window.location.has) {
+            this.matchId = window.location.hash
+            this.currentPlayerIndex = 1
         }
-        else{
+        else {
             this.startNewMatch()
         }
     }
@@ -52,8 +53,7 @@ this.matchId = window.location.hash
 
         window.location.hash = newRef.key
         this.matchId = newRef.key
-
-        console.log(newRef.key)
+        this.currentPlayerIndex = 0
     }
 
     componentDidMount() {
