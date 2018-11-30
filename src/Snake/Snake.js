@@ -37,7 +37,7 @@ class Snake extends React.Component {
 
     checkIfIsIntheMatch = () => {
         if (window.location.hash) {
-            this.matchId = window.location.hash
+            this.matchId = window.location.hash.replace('#', '')
             this.currentPlayerIndex = 1
             this.direction = 'left'
         }
@@ -58,7 +58,16 @@ class Snake extends React.Component {
         this.direction = 'right'
     }
 
+startListeningDatabaseChanges = () => {
+    this.props.firebaseDatabase.ref(`snake-multi${this.matchId}`).on(
+        'value',
+        snapshot => this.setState(snapshot.val())
+    )
+}
+
     componentDidMount() {
+        this.placeNewMeal()
+
         this.checkIfIsIntheMatch()
 
         this.intervalId = setInterval(
@@ -72,6 +81,8 @@ class Snake extends React.Component {
         )
 
         this.placeNewMeal()
+
+        this.startListeningDatabaseChanges()
     }
 
     componentWillUnmount() {
@@ -81,6 +92,8 @@ class Snake extends React.Component {
             'keydown',
             this.onArrowKeyDown
         )
+
+        this.props.firebaseDatabase.ref(`snake-multi${this.matchId}`).off()
     }
 
     gameTick = () => {
@@ -165,6 +178,7 @@ class Snake extends React.Component {
             this.setState({
                 meals: newMeals
             })
+            this.placeNewMeal()
         }
     }
 
