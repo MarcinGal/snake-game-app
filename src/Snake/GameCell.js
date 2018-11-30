@@ -1,20 +1,17 @@
 import React from 'react'
 
+const style = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexBasis: '10%'
+}
+
 const GameCell = (props) => (
-    <div>
-        {
-            GameCell.map(cell => (
-                <div>
-                    {
-                    props.row.map(cell => (
-                    <GameCell 
-                    cell={cell}
-                    />
-                    ))
-                    }
-                </div>
-            ))
-        }
+    <div
+    style = {style}
+    >
+          {props.cell}
     </div>
 )
 

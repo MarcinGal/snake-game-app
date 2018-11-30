@@ -1,12 +1,19 @@
 import React from 'react'
 import GameCell from './GameCell'
 
+const style = {
+    display: 'flex'
+}
+
 const GameRow = (props) => (
-    <div>
+    <div
+    style={style}
+    >
     {
         props.row.map(cell => (
-            <GameCell 
+            <GameCell
             cell = {cell}
+            numberOfCells={props.row.length}
             />
         ))
     }
